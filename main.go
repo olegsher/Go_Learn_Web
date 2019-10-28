@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Tools"
 	"fmt"
 	"io"
 	"log"
@@ -38,22 +39,6 @@ func TheAutoIndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func TheAutoIndexHandlerCars(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Cars!") // send data to client side
-}
-
-func CheckMyExtIP() (ip int) {
-	resp, err := http.Get("http://myexternalip.com/raw")
-	if err != nil {
-		os.Stderr.WriteString(err.Error())
-		os.Stderr.WriteString("\n")
-		os.Exit(1)
-	}
-	defer resp.Body.Close()
-	fmt.Printf("Payload is %d", &(resp.Body))
-	fmt.Printf("\nGetting external IP,  Status =  %s, ext. IP is ", resp.Status)
-	io.Copy(os.Stdout, resp.Body)
-
-	//TODO convert string from "http://myexternalip.com/raw" to IP using regular expression and return it. Copy resp.Body to buffer
-	return resp.StatusCode
 }
 
 func StartClient() {
@@ -114,7 +99,7 @@ func StartClient() {
 }
 
 func main() {
-	CheckMyExtIP()
+	fmt.Printf("int %d\n", Tools.CheckMyExtIP())
 	r := mux.NewRouter()
 	theAuto := r.Host("www.theauto.info").Subrouter()
 	svetlanaSher := r.Host("www.svetlanasher.com").Subrouter()
