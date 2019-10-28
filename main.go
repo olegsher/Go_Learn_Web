@@ -1,14 +1,15 @@
 package main
 
 import (
-	"Tools"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 
+	"Tools"
 	"github.com/gorilla/mux"
+	"theAuto"
 )
 
 const url_Albar string = "https://rent.albar.co.il/en/rent-in-israel/"
@@ -32,14 +33,6 @@ func VendorReserveCar() {
 func CustomerReservationRequest() {}
 
 func CustomerGetPersonalInfo() {}
-
-func TheAutoIndexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello www.theauto.info!") // send data to client side
-}
-
-func TheAutoIndexHandlerCars(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Cars!") // send data to client side
-}
 
 func StartClient() {
 	fmt.Println("Starting Client...")
@@ -101,11 +94,11 @@ func StartClient() {
 func main() {
 	fmt.Printf(" Proccess %d\n", Tools.CheckMyExtIP())
 	r := mux.NewRouter()
-	theAuto := r.Host("www.theauto.info").Subrouter()
+	tA := r.Host("www.theauto.info").Subrouter()
 	svetlanaSher := r.Host("www.svetlanasher.com").Subrouter()
 
-	theAuto.HandleFunc("/", TheAutoIndexHandler)
-	theAuto.HandleFunc("/cars/", TheAutoIndexHandlerCars)
+	tA.HandleFunc("/", theAuto.TheAutoIndexHandler)
+	tA.HandleFunc("/cars/", theAuto.TheAutoIndexHandlerCars)
 
 	svetlanaSher.HandleFunc("/", SvetlanaSherIndexHandler)
 
