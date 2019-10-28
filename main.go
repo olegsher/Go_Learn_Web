@@ -99,7 +99,7 @@ func StartClient() {
 }
 
 func main() {
-	fmt.Printf("int %d\n", Tools.CheckMyExtIP())
+	fmt.Printf(" Proccess %d\n", Tools.CheckMyExtIP())
 	r := mux.NewRouter()
 	theAuto := r.Host("www.theauto.info").Subrouter()
 	svetlanaSher := r.Host("www.svetlanasher.com").Subrouter()
