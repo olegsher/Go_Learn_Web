@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"SvetlanaSher"
 	"Tools"
 	"github.com/gorilla/mux"
 	"theAuto"
@@ -17,10 +18,6 @@ const url_Hertz string = "https://www.hertz.co.il/en/HomePage/.aspx"
 const url_local string = "http://127.0.0.1:80"
 const url_theAuto string = "http://www.theauto.info"
 const url_SvetlanaSher string = "http://www.svetlanasher.com"
-
-func SvetlanaSherIndexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello www.svetlanasher.com!") // send data to client side
-}
 
 func VendorGetPrices() {
 
@@ -95,12 +92,12 @@ func main() {
 	fmt.Printf(" Proccess %d\n", Tools.CheckMyExtIP())
 	r := mux.NewRouter()
 	tA := r.Host("www.theauto.info").Subrouter()
-	svetlanaSher := r.Host("www.svetlanasher.com").Subrouter()
+	ss := r.Host("www.svetlanasher.com").Subrouter()
 
 	tA.HandleFunc("/", theAuto.TheAutoIndexHandler)
 	tA.HandleFunc("/cars/", theAuto.TheAutoIndexHandlerCars)
 
-	svetlanaSher.HandleFunc("/", SvetlanaSherIndexHandler)
+	ss.HandleFunc("/", SvetlanaSher.SvetlanaSherIndexHandler)
 
 	// Bind to a port and pass our router in
 	go log.Fatal(http.ListenAndServe(":80", r))
